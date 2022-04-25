@@ -26,6 +26,27 @@ export const Container = styled.div`
   }
 `;
 
+export const ContainerMain = styled.div`
+  height: 80%;
+  width: 90%;
+  max-width: 370px;
+  border-radius: 3px;
+  background-color: var(--grey-3);
+  padding: 0px 0px 35px 0px;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ContainerTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 370px;
+`;
+
 export const Message = styled.p`
   color: var(--grey-1);
   font-size: 10px;
@@ -35,19 +56,6 @@ export const Message = styled.p`
   @media (min-width: 1024px) {
     font-size: 12px;
   }
-`;
-
-export const ContainerMain = styled.div`
-  height: max-content;
-  width: 90%;
-  max-width: 370px;
-  border-radius: 3px;
-  background-color: var(--grey-3);
-  padding: 0px 0px 35px 0px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 export const Form = styled.form`
@@ -90,5 +98,26 @@ export const Button = styled.button`
       ${(props) => (props.formButton ? "var(--pink-focus)" : "var(--grey-2)")};
     background-color: ${(props) =>
       props.formButton ? "var(--pink-focus)" : "var(--grey-2)"};
+  }
+`;
+
+export const ButtonGoBack = styled.button`
+  width: 79.54px;
+  height: 25.58px;
+  background-color: var(--grey-3);
+  font-size: 9.59px;
+  font-weight: 600;
+  border: none;
+  color: var(--grey-0);
+  border-radius: 4px;
+
+  :hover {
+    background-color: var(--grey-2);
+  }
+
+  @media (min-width: 1024px) {
+    width: 67.49px;
+    height: 32px;
+    font-size: 12px;
   }
 `;

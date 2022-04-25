@@ -13,6 +13,10 @@ export const Container = styled.div`
       color: var(--negative-toastify);
     }
     padding: 18px 0px 18px 0px;
+
+    @media (min-width: 1024px) {
+      font-size: 12.18px;
+    }
   }
 `;
 
@@ -21,13 +25,17 @@ export const InputContainer = styled.div`
   border-radius: 3px;
   border: 1px solid
     ${(props) =>
-      props.isErrored ? "var(--negative-toastify)" : "var(--grey-0)"};
+      props.isErrored ? "var(--negative-toastify)" : "var(--grey-2)"};
   color: var(--grey-0);
   width: 100%;
   height: 38px;
 
   display: flex;
   align-items: center;
+
+  @media (min-width: 1024px) {
+    height: 48px;
+  }
 
   input {
     background-color: transparent;
@@ -37,15 +45,31 @@ export const InputContainer = styled.div`
     padding-left: 13px;
     width: 90%;
     border: none;
-  }
 
-  input::placeholder {
-    font-size: 13px;
-    color: var(--grey-1);
+    @media (min-width: 1024px) {
+      font-size: 16.24px;
+    }
+
+    ::placeholder {
+      font-size: 13px;
+      color: var(--grey-1);
+
+      @media (min-width: 1024px) {
+        font-size: 16.24px;
+      }
+    }
   }
 
   svg {
     color: ${(props) =>
       props.isErrored ? "var(--negative-toastify)" : "var(--grey-1)"};
+
+    @media (min-width: 1024px) {
+      font-size: 18px;
+    }
+
+    :hover {
+      cursor: pointer;
+    }
   }
 `;

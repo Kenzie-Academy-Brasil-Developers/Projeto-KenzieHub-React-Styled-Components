@@ -5,9 +5,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import api from "../../services/api";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 function HomeLogin() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const history = useHistory();
 
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatório").email("Email inválido"),
@@ -28,10 +33,26 @@ function HomeLogin() {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = ({ email, password }) => {
+    const user = { email, password };
+    api
+      .post("/sessions", user)
+      .then((response) => console.log(response.data))
+      .catch((_) =>
+        toast.error("Usuário não cadastrado", {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      );
     reset();
   };
+
+  const onClickRegister = () => history.push("/register");
 
   return (
     <Container>
@@ -61,7 +82,7 @@ function HomeLogin() {
           </Button>
         </Form>
         <Message>Ainda não possui uma conta?</Message>
-        <Button>Cadastrar</Button>
+        <Button onClick={onClickRegister}>Cadastrar</Button>
       </ContainerMain>
     </Container>
   );
