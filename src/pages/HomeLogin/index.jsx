@@ -8,8 +8,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-function HomeLogin() {
+function HomeLogin({ authenticated, setAuthenticated }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const history = useHistory();
@@ -37,20 +38,46 @@ function HomeLogin() {
     const user = { email, password };
     api
       .post("/sessions", user)
-      .then((response) => console.log(response.data))
+      .then((response) => {
+        toast.success("Usuário logado com sucesso", {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        const { token } = response.data;
+        const { name, course_module } = response.data.user;
+
+        localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
+        localStorage.setItem("@KenzieHub:name", JSON.stringify(name));
+        localStorage.setItem(
+          "@KenzieHub:module",
+          JSON.stringify(course_module)
+        );
+
+        setAuthenticated(true);
+        return history.push("/dashboard");
+      })
       .catch((_) =>
         toast.error("Usuário não cadastrado", {
           position: "top-right",
           autoClose: 4000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
         })
       );
     reset();
   };
+
+  if (authenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   const onClickRegister = () => history.push("/register");
 

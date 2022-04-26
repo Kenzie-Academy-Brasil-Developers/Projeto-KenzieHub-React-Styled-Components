@@ -17,8 +17,9 @@ import api from "../../services/api";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import Select from "../../components/Select";
+import { Redirect } from "react-router-dom";
 
-function Register() {
+function Register({ authenticated }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const history = useHistory();
@@ -51,27 +52,42 @@ function Register() {
 
   const onSubmit = ({ email, password, name, bio, contact, course_module }) => {
     const user = { email, password, name, bio, contact, course_module };
-    // api
-    //   .post("/sessions", user)
-    //   .then((response) => console.log(response.data))
-    //   .catch((_) =>
-    //     toast.error("Usuário não cadastrado", {
-    //       position: "top-right",
-    //       autoClose: 4000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     })
-    //   );
-    console.log(user);
+    api
+      .post("/users", user)
+      .then((response) => {
+        toast.success("Usuário cadastrado com sucesso", {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return history.push("/");
+      })
+      .catch((_) =>
+        toast.error("Usuário não cadastrado", {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      );
+
     reset();
   };
 
   const onClickGoBack = () => {
     history.push("/");
   };
+
+  if (authenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Container>
