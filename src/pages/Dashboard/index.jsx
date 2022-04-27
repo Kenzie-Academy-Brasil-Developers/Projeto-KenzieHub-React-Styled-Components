@@ -20,6 +20,7 @@ function Dashboard({ authenticated, setAuthenticated }) {
   const [openNewTechModal, setOpenNewTechModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [myTechs, setMyTechs] = useState([]);
+  const [techId, setTechId] = useState("");
 
   const getUserTech = () => {
     const getUserId = localStorage.getItem("@KenzieHub:userid");
@@ -41,10 +42,6 @@ function Dashboard({ authenticated, setAuthenticated }) {
   useEffect(() => {
     getUserTech();
   }, []);
-
-  useEffect(() => {
-    console.log(myTechs);
-  }, [myTechs]);
 
   if (!authenticated) {
     return <Redirect to="/" />;
@@ -69,19 +66,20 @@ function Dashboard({ authenticated, setAuthenticated }) {
     setOpenNewTechModal(!openNewTechModal);
   };
 
-  const clickOpenDetailModal = () => {
+  const clickOpenDetailModal = (id) => {
     setOpenDetailModal(!openDetailModal);
+    setTechId(id);
   };
 
-  const deleteTech = (id) => {
+  const deleteTech = () => {
     const getToken = localStorage.getItem("@KenzieHub:token");
 
     const token = JSON.parse(getToken);
 
-    const filter = myTechs.filter((tech) => tech.id !== id);
+    const filter = myTechs.filter((tech) => tech.id !== techId);
 
     api
-      .delete(`/users/techs/${id}`, {
+      .delete(`/users/techs/${techId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -101,7 +99,10 @@ function Dashboard({ authenticated, setAuthenticated }) {
         />
       )}
       {openDetailModal && (
-        <ModalDetailsTechnology clickOpenDetailModal={clickOpenDetailModal} />
+        <ModalDetailsTechnology
+          clickOpenDetailModal={clickOpenDetailModal}
+          deleteTech={deleteTech}
+        />
       )}
       <ContainerTitle>
         <h1>Kenzie Hub</h1>
@@ -129,9 +130,8 @@ function Dashboard({ authenticated, setAuthenticated }) {
             myTechs.map((tech) => {
               return (
                 <ContainerTech
-                  onClick={clickOpenDetailModal}
+                  onClick={() => clickOpenDetailModal(tech.id)}
                   key={tech.id}
-                  deleteTech={deleteTech(tech.id)}
                 >
                   <h4>{tech.title}</h4>
                   <p>{tech.status}</p>

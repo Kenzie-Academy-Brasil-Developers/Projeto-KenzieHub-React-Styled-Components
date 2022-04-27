@@ -55,7 +55,7 @@ function ModalDetailsTechnology({ clickOpenDetailModal, deleteTech }) {
           />
           <ContainerButtons>
             <Button type="submit">Salvar alterações</Button>
-            <ButtonDelete type="button" onClick={() => deleteTech}>
+            <ButtonDelete type="button" onClick={deleteTech}>
               Excluir
             </ButtonDelete>
           </ContainerButtons>
