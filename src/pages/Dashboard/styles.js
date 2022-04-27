@@ -18,7 +18,6 @@ export const Container = styled.div`
 export const ContainerTitle = styled.div`
   width: 100vw;
   height: 72px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -122,6 +121,7 @@ export const ContainerTableTechs = styled.div`
   padding: 20px 15px 5px 15px;
   border-radius: 4px;
   background-color: var(--grey-3);
+  height: max-content;
 
   display: flex;
   flex-direction: column;

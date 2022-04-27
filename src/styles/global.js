@@ -17,6 +17,8 @@ export default createGlobalStyle`
         --grey-2: #343b41;
         --grey-1: #868e96;
         --grey-0: #f8f9fa;
+        --full-black: rgb(0,0,0); 
+        --black-drop: rgba(0,0,0,0.4);
         --success-toastify: #3fe864;
         --negative-toastify: #e83f5b;
     }

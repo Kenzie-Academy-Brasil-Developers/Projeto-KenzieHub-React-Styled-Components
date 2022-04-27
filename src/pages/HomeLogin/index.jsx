@@ -49,7 +49,7 @@ function HomeLogin({ authenticated, setAuthenticated }) {
           progress: undefined,
         });
         const { token } = response.data;
-        const { name, course_module } = response.data.user;
+        const { name, course_module, id } = response.data.user;
 
         localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
         localStorage.setItem("@KenzieHub:name", JSON.stringify(name));
@@ -57,6 +57,7 @@ function HomeLogin({ authenticated, setAuthenticated }) {
           "@KenzieHub:module",
           JSON.stringify(course_module)
         );
+        localStorage.setItem("@KenzieHub:userid", JSON.stringify(id));
 
         setAuthenticated(true);
         return history.push("/dashboard");

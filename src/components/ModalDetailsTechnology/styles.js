@@ -55,7 +55,6 @@ export const ContainerTitle = styled.div`
 
   @media (min-width: 1024px) {
     height: 50px;
-    padding: 0px 20px 0px 20px;
 
     h5 {
       font-size: 14px;
@@ -71,7 +70,6 @@ export const Form = styled.form`
   width: 100%;
   height: max-content;
   max-height: 235px;
-  padding: 0px 15px 0px 15px;
 
   display: flex;
   flex-direction: column;
@@ -79,12 +77,26 @@ export const Form = styled.form`
 
   @media (min-width: 1024px) {
     max-height: 292px;
-    padding: 0px 20px 0px 20px;
+  }
+`;
+
+export const ContainerButtons = styled.div`
+  display: flex;
+  height: max-content;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px 0px 15px;
+
+  @media (min-width: 1024px) {
+    padding: 0px 18px 0px 18px;
   }
 `;
 
 export const Button = styled.button`
-  width: 90%;
+  width: 163px;
   height: 38px;
   border: 1px solid var(--pink-primary);
   border-radius: 4px;
@@ -95,6 +107,7 @@ export const Button = styled.button`
   margin: 20px 0px 0px 0px;
 
   @media (min-width: 1024px) {
+    width: 204px;
     height: 48px;
     font-size: 16px;
   }
@@ -102,5 +115,28 @@ export const Button = styled.button`
   :hover {
     border: 1px solid var(--pink-focus);
     background-color: var(--pink-focus);
+  }
+`;
+
+export const ButtonDelete = styled.button`
+  width: 78px;
+  height: 38px;
+  border: 1px solid var(--grey-1);
+  border-radius: 4px;
+  background-color: var(--grey-1);
+  color: var(--grey-0);
+  font-size: 13px;
+  font-weight: 500;
+  margin: 20px 0px 0px 0px;
+
+  @media (min-width: 1024px) {
+    width: 98px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  :hover {
+    border: 1px solid var(--grey-2);
+    background-color: var(--grey-2);
   }
 `;

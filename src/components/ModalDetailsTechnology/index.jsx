@@ -4,15 +4,16 @@ import {
   ContainerTitle,
   Form,
   Button,
+  ButtonDelete,
+  ContainerButtons,
 } from "./styles";
 import Input from "../Input";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SelectNewTechnology from "../SelectNewTechnology";
-import api from "../../services/api";
 
-function ModalNewTechnology({ clickOpenTechModal, getUserTech }) {
+function ModalDetailsTechnology({ clickOpenDetailModal, deleteTech }) {
   const schema = yup.object().shape({
     title: yup.string().required("Campo obrigatório"),
   });
@@ -27,21 +28,7 @@ function ModalNewTechnology({ clickOpenTechModal, getUserTech }) {
   const onSubmit = ({ title, status }) => {
     const user = { title, status };
 
-    const getToken = localStorage.getItem("@KenzieHub:token");
-
-    const token = JSON.parse(getToken);
-
-    api
-      .post("/users/techs", user, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        getUserTech();
-        // clickOpenTechModal()
-      })
-      .catch((err) => console.log(err));
+    console.log(user);
 
     reset();
   };
@@ -50,12 +37,12 @@ function ModalNewTechnology({ clickOpenTechModal, getUserTech }) {
     <BackgroundModal>
       <Container>
         <ContainerTitle>
-          <h5>Cadastrar Tecnologia</h5>
-          <button onClick={clickOpenTechModal}>&times;</button>
+          <h5>Tecnologia Detalhes</h5>
+          <button onClick={clickOpenDetailModal}>&times;</button>
         </ContainerTitle>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            label="Nome"
+            label="Nome do projeto"
             placeholder="Digite a nova tecnologia"
             register={register}
             name="title"
@@ -66,18 +53,16 @@ function ModalNewTechnology({ clickOpenTechModal, getUserTech }) {
             name="status"
             register={register}
           />
-
-          <Button type="submit">Cadastrar Tecnolgia</Button>
+          <ContainerButtons>
+            <Button type="submit">Salvar alterações</Button>
+            <ButtonDelete type="button" onClick={() => deleteTech}>
+              Excluir
+            </ButtonDelete>
+          </ContainerButtons>
         </Form>
       </Container>
     </BackgroundModal>
   );
 }
 
-export default ModalNewTechnology;
-
-/* 
-Criar modal Tecnologia detalhes, implementar no clique da div de tecnologia
-Fazer map criando os ContainerTech a partir da Api e atribuir ID a cada div, para facilitar a edição, selecionando a partir do ID da tecnologia
-Checar se as tecnolgias possuem ID, caso sim, enviar o PUT pra tecnolgia cujo id seja o mesmo id da div clicada, o mesmo para o DELETE
-*/
+export default ModalDetailsTechnology;
